@@ -1,28 +1,38 @@
 package com.budget.data.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 @Entity
-@Table(name="items", schema="budget")
+@Table(name="items")
 public class Item {
 
 	@Id
-	@Column(name="item_id")
+	@Column(name="item_id", unique=true, nullable=false, columnDefinition="INTEGER")
+	@SequenceGenerator(name="item_seq", sequenceName="item_seq", allocationSize=1)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="item_seq")
 	private long id;
 	
-	@JoinColumn(name="item_cate_id")
-	@ManyToOne(fetch = FetchType.EAGER)
-    private Category category;
+	@JoinColumn(name="cate_id")
+	@ManyToOne(cascade=CascadeType.ALL)
+        private Category category;
 
 	
 	@Column(name="item_name_tx")
+        @NotNull
 	@Size(max=50)
 	private String name;
 
@@ -52,7 +62,7 @@ public class Item {
 
 	@Override
 	public String toString() {
-		return name;
+		return ReflectionToStringBuilder.toString(this, ToStringStyle.SHORT_PREFIX_STYLE);
 	}
 
 	@Override
@@ -76,5 +86,4 @@ public class Item {
 			return false;
 		return true;
 	}
-
 }

@@ -8,6 +8,9 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 @Entity
 @Table(name="users")
 public class User {
@@ -15,7 +18,7 @@ public class User {
 	@Id
 	@SequenceGenerator(name="user_seq", sequenceName="user_seq", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="user_seq")
-	@Column(name="user_id", unique=true, nullable=false)
+	@Column(name="user_id", unique=true, nullable=false, columnDefinition="INTEGER")
 	private Long id;
 	
 	@Column(name="user_name_tx", nullable=false)
@@ -39,14 +42,14 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [name=" + name + "]";
+		return ReflectionToStringBuilder.toString(this, ToStringStyle.SHORT_PREFIX_STYLE);
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + (int) (id ^ (id >>> 32));
 		return result;
 	}
 
@@ -59,10 +62,7 @@ public class User {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
+		if (id != other.id)
 			return false;
 		return true;
 	}

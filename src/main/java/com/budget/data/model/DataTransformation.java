@@ -1,7 +1,6 @@
 package com.budget.data.model;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
@@ -10,11 +9,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 import com.budget.data.utils.DataTransformationStage;
 import com.budget.data.utils.DataTransformationSubtype;
 import com.budget.data.utils.DataTransformationType;
 
-@Entity
+//@Entity
 @Table(name="data_transformations")
 public class DataTransformation {
 
@@ -102,7 +104,7 @@ public class DataTransformation {
 
 	@Override
 	public String toString() {
-		return "DataTransformation [key=" + key + "]";
+		return ReflectionToStringBuilder.toString(this, ToStringStyle.SHORT_PREFIX_STYLE);
 	}
 
 	@Override
