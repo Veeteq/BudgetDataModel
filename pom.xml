@@ -4,9 +4,9 @@
 	<groupId>com.budget.data.model</groupId>
 	<artifactId>budget-model</artifactId>
 	<version>0.0.1</version>
+	<name>Budget Data Model</name>
 
 	<properties>
-
 		<!-- Generic properties -->
 		<java.version>1.8</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -19,7 +19,6 @@
 		<hibernate.version>5.2.12.Final</hibernate.version>
 
 		<!-- Logging -->
-		<logback.version>1.0.13</logback.version>
 		<slf4j.version>1.7.25</slf4j.version>
 
 		<!-- Test -->
@@ -67,7 +66,7 @@
 			<artifactId>spring-aspects</artifactId>
 		</dependency>
 
-		<!-- Logging with SLF4J & LogBack -->
+		<!-- Logging -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
@@ -78,6 +77,12 @@
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>${slf4j.version}</version>
+			<scope>runtime</scope>
 		</dependency>
 
 		<!-- Hibernate -->
@@ -163,7 +168,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.5.1</version>
+				<version>3.1</version>
 				<configuration>
 					<source>${java.version}</source>
 					<target>${java.version}</target>
