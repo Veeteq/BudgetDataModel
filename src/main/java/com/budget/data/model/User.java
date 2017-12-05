@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -22,6 +24,8 @@ public class User {
 	private Long id;
 	
 	@Column(name="user_name_tx", nullable=false)
+	@NotNull
+	@Size(min=3, max=50)
 	private String name;
 
 	public Long getId() {

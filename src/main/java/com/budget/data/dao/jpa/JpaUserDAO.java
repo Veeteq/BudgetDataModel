@@ -38,7 +38,7 @@ public class JpaUserDAO implements UserDAO{
 	}
 	
 	@Override
-	public User getById(long id) {
+	public User getById(Long id) {
 		return entityManager.find(User.class, id);
 	}
 

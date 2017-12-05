@@ -10,7 +10,7 @@ public interface UserDAO {
 
 	public long countAll();
 	public List<User> getAll();
-	public User getById(long id);
+	public User getById(Long id);
 	public TypedQuery<User> getByName(String name);
 	public User save(User user);
 	public boolean delete(User user);

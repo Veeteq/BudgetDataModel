@@ -23,7 +23,7 @@ public class UserService {
 		return userDAO.getAll();
 	}
 	
-	public User getById(long id){
+	public User getById(Long id){
 		return userDAO.getById(id);
 	}
 
@@ -34,5 +34,10 @@ public class UserService {
 	@Transactional
 	public User save(User user){
 		return userDAO.save(user);
+	}
+
+	@Transactional
+	public User update(User user) {
+		return userDAO.update(user);
 	}
 }
