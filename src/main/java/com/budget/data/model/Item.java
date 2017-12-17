@@ -28,7 +28,7 @@ public class Item {
 	
 	@JoinColumn(name="cate_id")
 	@ManyToOne(cascade=CascadeType.ALL)
-        private Category category;
+    private Category category;
 
 	
 	@Column(name="item_name_tx")

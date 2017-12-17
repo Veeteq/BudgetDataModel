@@ -37,7 +37,7 @@ public class TestItemDAO {
 		logger.info("running tests");
 		List<Item> items = itemDAO.getAll();
 		logger.info("items count: " + items.size());
-		Assert.assertEquals(0, items.size());
+		Assert.assertEquals(782, items.size());
 	}
 	
 	@Test

@@ -32,7 +32,7 @@ public class DAOTest {
 	@Test
 	public void launchDAO() {
 		logger.info("running tests: countAll");
-		Assert.assertEquals(0, categoryDAO.countAll());
+		Assert.assertEquals(17, categoryDAO.countAll());
 	}
 
 	//@Test

@@ -46,7 +46,7 @@ public class UserTest {
 	public void getCount() {
 		long count = userService.countAll();
 		logger.info("users count: " + count);
-		Assert.assertEquals(18, count);
+		Assert.assertEquals(30, count);
 	}
 	
 	@Test

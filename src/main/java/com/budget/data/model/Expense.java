@@ -5,9 +5,12 @@ import java.util.Calendar;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
@@ -19,24 +22,27 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Expense {
 
 	@Id
-	@Column(name="expe_id")
+	@Column(name="expe_id", unique=true, nullable=false, columnDefinition="INTEGER")
+	@SequenceGenerator(name="expe_seq", sequenceName="expe_seq", allocationSize=1)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="expe_seq")
 	private long id;
 	
-	@Column(name="oper_dt")
+	@Column(name="oper_dt", columnDefinition="DATE")
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Calendar date;
 	
 	@JoinColumn(name="item_id")
+	@ManyToOne
 	private Item item;
 	
 	@JoinColumn(name="user_id")
 	@ManyToOne
 	private User user;
 	
-	@Column(name="expe_item_cn")
+	@Column(name="expe_item_cn", columnDefinition="DECIMAL(10,3)")
 	private BigDecimal count;
 	
-	@Column(name="expe_pric_am")
+	@Column(name="expe_pric_am", columnDefinition="DECIMAL(10,2)")
 	private BigDecimal price;
 	
 	@Column(name="expe_comm_tx")
