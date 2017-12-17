@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -11,9 +12,10 @@ import javax.persistence.Table;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.springframework.format.annotation.DateTimeFormat;
 
-//@Entity
-@Table(name="expences")
+@Entity
+@Table(name="expenses")
 public class Expense {
 
 	@Id
@@ -21,6 +23,7 @@ public class Expense {
 	private long id;
 	
 	@Column(name="oper_dt")
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Calendar date;
 	
 	@JoinColumn(name="item_id")
@@ -34,7 +37,7 @@ public class Expense {
 	private BigDecimal count;
 	
 	@Column(name="expe_pric_am")
-	private BigDecimal amount;
+	private BigDecimal price;
 	
 	@Column(name="expe_comm_tx")
 	private String comment;
@@ -69,11 +72,11 @@ public class Expense {
 	public void setCount(BigDecimal count) {
 		this.count = count;
 	}
-	public BigDecimal getAmount() {
-		return amount;
+	public BigDecimal getPrice() {
+		return price;
 	}
-	public void setAmount(BigDecimal amount) {
-		this.amount = amount;
+	public void setPrice(BigDecimal price) {
+		this.price = price;
 	}
 	public String getComment() {
 		return comment;
