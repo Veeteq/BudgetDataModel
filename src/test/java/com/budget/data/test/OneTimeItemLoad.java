@@ -30,11 +30,13 @@ public class OneTimeItemLoad {
 	private final static String cateString = "INSERT INTO categories(cate_id, cate_name_tx, cate_type_tx) values(?, ?, ?)";
 	private final static String itemString = "INSERT INTO items(item_id, cate_id, item_name_tx) values(?, ?, ?)";
 	private final static String userString = "INSERT INTO users(user_id, user_name_tx) values(?, ?)";
+	private final static String expeString = "INSERT INTO expenses(expe_id, oper_dt, item_id, expe_item_cn, expe_pric_am, expe_comm_tx, user_id) values(?, ?, ?, ?, ?, ?, ?)";
 	
 	public static void main(String[] args) throws IOException {
 		File cateFile = new File("f:/categories.txt");
 		File itemFile = new File("f:/items.txt");
 		File userFile = new File("f:/users.txt");
+		File expeFile = new File("f:/expences.txt");
 		
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("classpath*:META-INF/spring/applicationContext.xml");
 		EntityManagerFactory emf = (EntityManagerFactory) ctx.getBean("entityManagerFactory");
@@ -43,10 +45,12 @@ public class OneTimeItemLoad {
 		saveCategories(getListFromFile(cateFile), em);
 		saveItems(getListFromFile(itemFile), em);		
 		saveUsers(getListFromFile(userFile), em);
+		saveExpenses(getListFromFile(expeFile), em);
 		
 		rebuildSequences("SELECT max(i.id) FROM Item i", "item", em);
 		rebuildSequences("SELECT max(u.id) FROM User u", "user", em);
 		rebuildSequences("SELECT max(c.id) FROM Category c", "cate", em);
+		rebuildSequences("SELECT max(e.id) FROM Expense e", "expe", em);
 		
 		String sqlString2 = "SELECT COUNT(c) from Category c";
 		Long result = em.createQuery(sqlString2, Long.class).getSingleResult();
@@ -123,6 +127,30 @@ public class OneTimeItemLoad {
 			Query query = em.createNativeQuery(userString);
 			query.setParameter(1, Integer.parseInt(data[0]));
 			query.setParameter(2, data[1]);
+			query.executeUpdate();
+			et.commit();
+		});
+	}
+	
+	private static void saveExpenses(List<String> dataList, EntityManager em) {
+		EntityTransaction et = em.getTransaction();
+
+		et.begin();
+		Query delQuery = em.createNativeQuery("DELETE FROM expenses");
+	    delQuery.executeUpdate();
+	    et.commit();
+	    
+	    dataList.forEach(s -> {
+			String[] data = s.split("\\t");
+			et.begin();
+			Query query = em.createNativeQuery(expeString);
+			query.setParameter(1, Integer.parseInt(data[0]));
+			query.setParameter(2, data[1]);
+			query.setParameter(3, Integer.parseInt(data[2]));
+			query.setParameter(4, data[3]);
+			query.setParameter(5, data[4]);
+			query.setParameter(6, data[5]);
+			query.setParameter(7, Integer.parseInt(data[6]));
 			query.executeUpdate();
 			et.commit();
 		});

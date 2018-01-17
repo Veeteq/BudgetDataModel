@@ -11,8 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.budget.data.dao.ExpenseDAO;
 import com.budget.data.dao.ItemDAO;
 import com.budget.data.model.Category;
+import com.budget.data.model.Expense;
 import com.budget.data.model.Item;
 import com.budget.data.service.CategoryService;
 import com.budget.data.service.ItemService;
@@ -31,6 +33,9 @@ public class TestItemDAO {
 	
 	@Autowired
 	CategoryService categoryService;
+	
+	@Autowired
+	ExpenseDAO expenseDAO;
 	
 	@Test
 	public void getAll(){
@@ -62,6 +67,11 @@ public class TestItemDAO {
 		item.setCategory(categoryService.getById(12));
 		item.setName("Bilety do ...");
 		//itemService.save(item);
-		
+	}
+	
+	@Test
+	public void listExp(){
+		List<Expense> expenses = expenseDAO.getAll();
+		expenses.forEach(System.out::println);
 	}
 }
